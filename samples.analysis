@@ -1,0 +1,36 @@
+Total number of documets in the data collection: 5 
+
+------------------------------------------------------------
+Document Name: $DOC LA010190-0001 
+Document Length by Sentences: 6 
+Document Length by Tokens: 162 
+Average Sentence Length by Tokens: 27.0 
+------------------------------------------------------------
+Document Name: $DOC LA010190-0002 
+Document Length by Sentences: 23 
+Document Length by Tokens: 859 
+Average Sentence Length by Tokens: 37.34782608695652 
+------------------------------------------------------------
+Document Name: $DOC LA010190-0003 
+Document Length by Sentences: 13 
+Document Length by Tokens: 233 
+Average Sentence Length by Tokens: 17.923076923076923 
+------------------------------------------------------------
+Document Name: $DOC LA010190-0004 
+Document Length by Sentences: 17 
+Document Length by Tokens: 319 
+Average Sentence Length by Tokens: 18.764705882352942 
+------------------------------------------------------------
+Document Name: $DOC LA010190-0005 
+Document Length by Sentences: 7 
+Document Length by Tokens: 177 
+Average Sentence Length by Tokens: 25.285714285714285 
+------------------------------------------------------------
+Summary: 
+The minimum document length by the number of sentences is: 6 
+The average document length by the number of sentences is: 13.2 
+The maximum document length by the number of sentences is: 23 
+The minimum document length by the number of tokens is: 162 
+The average document length by the number of tokens is: 350.0 
+The maximum document length by the number of tokens is: 859 
+The average sentence length by tokens of the data collection is: 26.515151515151516 

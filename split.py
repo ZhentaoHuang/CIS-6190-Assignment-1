@@ -1,6 +1,5 @@
-"""
-Author: Zhentao Huang
-This file is used to split the title and text into sequence of strings.
+"""Author: Zhentao Huang
+This file is used to split the title and text into sequence of strings. Type -h for help.
 """
 from nltk import sent_tokenize
 import argparse

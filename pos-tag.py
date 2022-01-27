@@ -1,5 +1,5 @@
-""" Author: Zhentao Huang
-This file is used for pos-tagging task. The original code is taken from pos-tag.py from SamplePrograms.
+"""Author: Zhentao Huang
+This file is used for pos-tagging task. The original code is taken from pos-tag.py from SamplePrograms. Type -h for help.
 """
 
 from nltk import pos_tag

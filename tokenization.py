@@ -1,8 +1,8 @@
-""" Author: Zhentao Huang
-This file is used to perform the tokenization task. Some code is taken from the scac_good.py file.
+"""Author: Zhentao Huang
+This file is used to perform the tokenization task. Some code is taken from the scac_good.py file. Type -h for help.
 
 """
-from lib2to3.pgen2.tokenize import tokenize
+
 import ply.lex as lex
 import argparse
  
