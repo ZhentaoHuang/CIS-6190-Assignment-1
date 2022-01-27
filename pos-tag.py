@@ -42,7 +42,6 @@ def arg_parse():
     print("Input: %s" % args.Input)
     print("Output as: % s" % args.Output)
 
-
     return args
 
 def main(args):

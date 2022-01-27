@@ -3,10 +3,11 @@ Author: Zhentao Huang
 This file is used to split the title and text into sequence of strings.
 """
 from nltk import sent_tokenize
+import argparse
 
 
 def split(infile, outfile):
-    """[summary]
+    """
     This function is used to conduct the sentence splitting for both title and body texts. 
     Inspired by the sample program.
 
@@ -43,9 +44,40 @@ def split(infile, outfile):
     for sent in sents:
         outfile.write(sent + '\n')
     
+def arg_parse():
+    """This function is used for command line argument parsing. It utilizes the argparse library. It provides the user with file choice at runtime.
 
-input = open('samples.txt', 'r')
-output = open('samples.splitted', 'w')
-split(input, output)
-input.close()
-output.close()
+    Returns:
+        args: command line arguments
+    """
+
+    # Initialize parser
+    parser = argparse.ArgumentParser()
+    
+    # Adding optional argument
+    parser.add_argument("-i", "--Input", default="samples.txt", help = "The input file (default: samples.txt)")
+    parser.add_argument("-o", "--Output", default="samples.splitted", help = "The output file (default: samples.splitted)")
+    
+    # Read arguments from command line
+    args = parser.parse_args()
+    
+    print("Input: %s" % args.Input)
+    print("Output as: % s" % args.Output)
+
+    return args
+
+def main(args):
+
+    input = open(args.Input, 'r')
+    output = open(args.Output, 'w')
+    
+    split(input, output)
+
+    input.close()
+    output.close()
+
+if __name__ == "__main__":
+
+    args = arg_parse()
+    main(args)
+

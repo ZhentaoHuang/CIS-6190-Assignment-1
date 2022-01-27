@@ -2,7 +2,9 @@
 This file is used to perform the tokenization task. Some code is taken from the scac_good.py file.
 
 """
+from lib2to3.pgen2.tokenize import tokenize
 import ply.lex as lex
+import argparse
  
 # List of token names, always needed
 tokens = (
@@ -179,12 +181,13 @@ def postproc_WORD(input, output):
 
 	return
 
-def main():
+def tokenize(input, output):
+	"""This function is used to perform the tokenization task. It reads the lines and call scan() function each line then call the postprocessing functions.
 
-	input = open('samples.splitted', 'r')
-	output = open('samples.tokenized', 'w')
-
-
+	Args:
+		input (file): input file
+        output (file): output file
+	"""
 	lines = input.readlines()
 
 	for line in lines:
@@ -217,4 +220,41 @@ def main():
 	input.close()
 	output.close()
 
-main()
+
+
+def arg_parse():
+    """This function is used for command line argument parsing. It utilizes the argparse library. It provides the user with file choice at runtime.
+
+    Returns:
+        args: command line arguments
+    """
+
+    # Initialize parser
+    parser = argparse.ArgumentParser()
+    
+    # Adding optional argument
+    parser.add_argument("-i", "--Input", default="samples.splitted", help = "The input file (default: samples.splitted)")
+    parser.add_argument("-o", "--Output", default="samples.tokenized", help = "The output file (default: samples.tokenized)")
+    
+    # Read arguments from command line
+    args = parser.parse_args()
+    
+    print("Input: %s" % args.Input)
+    print("Output as: % s" % args.Output)
+
+    return args
+
+def main(args):
+
+    input = open(args.Input, 'r')
+    output = open(args.Output, 'w')
+    
+    tokenize(input, output)
+
+    input.close()
+    output.close()
+
+if __name__ == "__main__":
+
+    args = arg_parse()
+    main(args)
