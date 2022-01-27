@@ -1,5 +1,7 @@
-# from posixpath import split
-# from sre_constants import JUMP
+""" Author: Zhentao Huang
+This file is used to perform the tokenization task. Some code is taken from the scac_good.py file.
+
+"""
 import ply.lex as lex
  
 # List of token names, always needed
@@ -15,18 +17,12 @@ tokens = (
 
 def t_LABEL(t): r'\$DOC.+|\$TITLE|\$TEXT'; return t  #LABEL must be exact "$TITLE", "$TEXT" or start with "$DOC"
 def t_APOSTROPHIZED(t): r'[a-zA-Z]+(-[a-zA-Z]+)*\'[a-zA-Z]+(\'[a-zA-Z]+)*'; return t
-def t_HYPHENATED(t): r'[a-zA-Z]+-[a-zA-Z]+(-[a-zA-Z]+)*'; return t
+def t_HYPHENATED(t): r'[a-zA-Z0-9]+-[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*'; return t
 def t_WORD(t): r'[+|-]?[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*'; return t # Word are strings of letters and digits but must have one letters at least
 def t_NUMBER(t): r'[+|-]?\d+(\.\d+)?'; return t	# Integers and real numbers, with possible positive and negative signs
 def t_DELIMITERS(t): r'[ \t]+'; return t
 def t_PUNCTUATION(t): r'.'; return t
 
-
-# t_NUMBER =  r'[+|-]?\d+(\.\d+)?' 	#Intergers and real numbers, with possible positive and negative signs
-# t_APOSTROPHIZED = r'[a-zA-Z]+(-[a-zA-Z]+)*\'[a-zA-Z]+(\'[a-zA-Z]+)*'
-# t_HYPHENATED = r'[a-zA-Z]+-[a-zA-Z]+(-[a-zA-Z]+)*'
-# t_DELIMITERS = r'[ \t]+'
-# t_PUNCTUATION = r'.'
 
 # Error handling, always required
 def t_error(t):
@@ -35,7 +31,14 @@ def t_error(t):
 
 
 def scan(data):
+	"""This function is used to build the lexer object and scan the input then transfer to a list of tokens. The original code is taken from scan_good.py
 
+	Args:
+		data (string): Input string
+
+	Returns:
+		tok_list (list): A list of tokens
+	"""
 	# Build the lexer
 	lexer = lex.lex()
 
@@ -45,9 +48,9 @@ def scan(data):
 		tok = lexer.token()
 		if not tok:
 			break
-		#print(tok)
+		
 		tok_list.append(tok)
-      # print(tok.type, tok.value, tok.lineno, tok.lexpos)
+      
 	return tok_list
 
 
@@ -70,8 +73,7 @@ def update_output_with_delimiters(list, output, delimiters):
 
 
 def postproc_HYPHENATED(input, output):
-	"""[summary]
-	This function is used to check different situation for HYPHENATED token type, and update the ouput list based on that.
+	"""This function is used to check different situation for HYPHENATED token type, and update the ouput list based on that.
 
 	Args:
 		input (token): individual item of token_list acquired from the scan() function
@@ -184,7 +186,7 @@ def main():
 
 
 	lines = input.readlines()
-	count = 0
+
 	for line in lines:
 
 		token_list = scan(line[:-1])
@@ -195,28 +197,22 @@ def main():
 			if(token.type != 'DELIMITERS'):	# Skip the delimiters
 				if(token.type == 'HYPHENATED'):
 					
-					postproc_HYPHENATED(token, value_list)	# process the HYPHENATED and update the value_list
+					postproc_HYPHENATED(token, value_list)	# Process the HYPHENATED and update the value_list
 					
 				elif(token.type == 'APOSTROPHIZED'):
 
-					postproc_APOSTROPHIZED(token, value_list) # process the APOSTROPHIZED and update the value_list
+					postproc_APOSTROPHIZED(token, value_list) # Process the APOSTROPHIZED and update the value_list
 
 				elif(token.type == 'WORD'):
 
-					postproc_WORD(token, value_list) # process the WORD and update the value_list
+					postproc_WORD(token, value_list) # Process the WORD and update the value_list
 			
 				else:
 					valid = True
 			if(valid):
-				value_list.append(token.value)
+				value_list.append(token.value)	# Append the string to the value_list if it is valid
 			
-		output.write(' '.join(value_list) + '\n')
-
-
-		count = count + 1
-		if(count == 6):
-			break
-
+		output.write(' '.join(value_list) + '\n')	# Write the ouput to the file based on value_list
 
 	input.close()
 	output.close()

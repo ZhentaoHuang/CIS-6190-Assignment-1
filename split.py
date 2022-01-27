@@ -2,18 +2,17 @@
 Author: Zhentao Huang
 This file is used to split the title and text into sequence of strings.
 """
-from re import S
 from nltk import sent_tokenize
 
 
 def split(infile, outfile):
-    """
+    """[summary]
     This function is used to conduct the sentence splitting for both title and body texts. 
     Inspired by the sample program.
 
     Args:
-        infile ([file]): [input file]
-        outfile ([file]): [output file]
+        infile (file): input file
+        outfile (file): output file
     """
     lines = infile.readlines()
     section = []    #a temporary buffer used to store the section between labels
